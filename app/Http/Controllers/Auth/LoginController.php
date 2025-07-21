@@ -24,7 +24,7 @@ class LoginController extends Controller
                 'email' => ['The credentials you entered are incorrect.']
             ]);
         }
-        
+
 
         // // Retrieve authenticated user
         // $user = auth()->user();
@@ -37,6 +37,6 @@ class LoginController extends Controller
         //     'user' => $user,
         //     'token' => $token
         // ]);
-    
+
     }
 }

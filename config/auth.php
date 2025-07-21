@@ -65,6 +65,11 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'api' => [
+            'driver' => 'sanctum', // or 'token' or 'passport'
+            'provider' => 'users',
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
