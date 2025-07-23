@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TaskResource extends JsonResource
+class PriorityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +17,7 @@ class TaskResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'user_name' => $this->user->name??'',
-            'is_completed' => (bool) $this->is_complete,
-            'created_at' => $this->created_at->format('h:i A d F, Y'),
-            'priority' => PriorityResource::make($this->whenLoaded('priority')),
-
+            'description' => $this->description,
         ];
     }
 }

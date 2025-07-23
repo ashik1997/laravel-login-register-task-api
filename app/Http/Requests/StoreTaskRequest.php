@@ -24,6 +24,15 @@ class StoreTaskRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'user_id' => 'nullable|exists:users,id',
+            'priority_id' => 'nullable|exists:priorities,id',
+            'is_complete' => 'boolean',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'priority_id' => 'priority',
         ];
     }
 }

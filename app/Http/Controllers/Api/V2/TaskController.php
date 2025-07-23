@@ -25,8 +25,12 @@ class TaskController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Task::class);
-
-        return TaskResource::collection(Auth::user()->tasks);
+        $userTasks = auth()->user()
+        ->tasks()
+        ->handleSort(request()->query('sort_by') ?? 'time')
+        ->with('priority')
+        ->get();
+        return TaskResource::collection($userTasks);
     }
 
     /**
@@ -35,6 +39,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $task = $request->user()->tasks()->create($request->validated());
+        $task->load('priority'); // Load priority relationship
         return new TaskResource($task);
     }
 
@@ -44,6 +49,9 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         $this->authorize('view', $task);
+
+        $task->load('priority'); // Load priority relationship
+
         return new TaskResource($task);
     }
 
@@ -54,6 +62,8 @@ class TaskController extends Controller
     {
         $this->authorize('update', $task);
         $task->update($request->validated());
+
+        $task->load('priority'); // Load priority relationship
 
         return TaskResource::make($task);
     }
